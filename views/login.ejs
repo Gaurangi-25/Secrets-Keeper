@@ -1,0 +1,31 @@
+<%- include('partials/header') %>
+
+<div class="login-page">
+  <h1 class="page-title2">Login</h1>
+
+  <div class="form-gradient-wrapper">
+    <div class="login-grid">
+      <div class="login-form-box">
+        <form action="/login" method="POST">
+          <div class="form-group">
+            <label for="email">Email</label>
+            <input type="email" name="username" required>
+          </div>
+          <div class="form-group">
+            <label for="password">Password</label>
+            <input type="password" name="password" required>
+          </div>
+          <button class="btn" type="submit">Login</button>
+        </form>
+      </div>
+
+      <div class="google-auth-box">
+        <a class="google-link" href="/auth/google">
+          Sign In with Google
+        </a>
+      </div>
+    </div>
+  </div>
+</div>
+
+<%- include('partials/footer') %>

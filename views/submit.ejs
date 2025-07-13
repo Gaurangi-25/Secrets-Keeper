@@ -1,0 +1,16 @@
+<%- include('partials/header') %>
+
+<div class="submit-page">
+  <div class="submit-container">
+    <div class="submit-icon">&#128273;</div>
+    <h1 class="submit-title">Secrets</h1>
+    <p class="submit-subtitle">Don't keep your secrets, share them anonymously!</p>
+
+    <form class="submit-form" action="/submit" method="POST">
+      <input type="text" name="secret" placeholder="What's your secret?" required>
+      <button type="submit">Submit</button>
+    </form>
+  </div>
+</div>
+
+<%- include('partials/footer') %>

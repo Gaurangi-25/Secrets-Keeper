@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+  <meta charset="utf-8">
+  <title>Secrets</title>
+
+  <!-- Font Awesome for icons (optional, can remove if unused) -->
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css" crossorigin="anonymous">
+
+  <!-- Custom CSS (no Bootstrap) -->
+  <link rel="stylesheet" href="/css/styles.css">
+</head>
+
+<body>
+  <header>
+    <nav class="nav">
+      <a href="/" class="nav-link">Home</a>
+      <% if (user) { %>
+        <a href="/secret" class="nav-link">Secrets</a>
+        <a href="/logout" class="nav-link">Logout</a>
+      <% } else { %>
+        <a href="/login" class="nav-link">Login</a>
+        <a href="/register" class="nav-link">Register</a>
+      <% } %>
+    </nav>
+  </header>

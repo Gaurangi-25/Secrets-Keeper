@@ -1,0 +1,312 @@
+/* =====================================
+   Root Variables
+===================================== */
+:root {
+  --secondary-bg: #574963;
+  --accent-bg: #7c677a;
+  --light-pink: #ffe0e6;
+  --highlight: #b18b9a;
+  --text-muted: #6e546c;
+
+  --font-main: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  --font-style: "Arial, Helvetica", sans-serif;
+  --text-light: #ffffff;
+  --text-dark: #1e1e1e;
+}
+
+/* =====================================
+   Global Styles
+===================================== */
+body {
+  margin: 0;
+  padding: 0;
+  font-family: var(--font-main);
+  color: var(--light-pink);
+}
+
+/* =====================================
+   Navigation (Header)
+===================================== */
+header {
+  background-color: var(--secondary-bg);
+  padding: 15px 30px;
+}
+
+nav {
+  display: flex;
+  justify-content: flex-end;
+  gap: 40px;
+}
+
+nav a {
+  color: var(--light-pink);
+  text-decoration: none;
+  font-weight: 500;
+  transition: color 0.3s ease;
+}
+
+nav a:hover {
+  color: var(--highlight);
+}
+
+/* =====================================
+   Hero Section (Home Page)
+===================================== */
+.home-wrapper {
+  display: flex;
+  justify-content: center;
+  margin: 30px;
+}
+
+.hero-section {
+  max-width: 700px;
+  max-height: 600px;
+  border-radius: 10px;
+  padding: 80px 80px;
+  background: linear-gradient(135deg, var(--secondary-bg), var(--accent-bg));
+  box-shadow: inset 0 0 30px rgba(255, 255, 255, 0.05);
+  text-align: center;
+  display: flex;
+  justify-content: center;
+}
+
+.main-container {
+  max-width: 600px;
+  margin: auto;
+}
+
+.title {
+  font-size: 3rem;
+  color: var(--pink);
+  text-shadow: 0 0 10px var(--highlight);
+}
+
+.subtitle {
+  font-size: 1.25rem;
+  color: var(--light-pink);
+}
+
+.button-group {
+  margin-top: 30px;
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+}
+
+.btn {
+  background-color: var(--accent-bg);
+  color: var(--light-pink);
+  padding: 12px 24px;
+  border: none;
+  border-radius: 8px;
+  text-decoration: none;
+  font-weight: bold;
+  box-shadow: 0 0 10px var(--highlight);
+  transition: all 0.3s ease;
+}
+
+.btn:hover {
+  background-color: var(--light-pink);
+  color: var(--text-dark);
+  box-shadow: 0 0 20px var(--light-pink);
+}
+
+/* =====================================
+   Background Gradient Wrapper
+===================================== */
+.form-gradient-wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 80px 20px;
+  background: linear-gradient(135deg, var(--secondary-bg), var(--accent-bg));
+  box-shadow: inset 0 0 30px rgba(255, 255, 255, 0.05);
+  border-radius: 10px;
+  margin: 50px auto;
+  max-width: 700px;
+}
+
+/* =====================================
+   Form Pages (Login / Register / Submit)
+===================================== */
+
+.page-title {
+  color: var(--light-pink);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-family: var(--font-style);
+  font-weight: 800;
+}
+
+.page-title2 {
+  color: #574963;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-family: var(--font-style);
+  font-weight: 800;
+  margin-top: 0px;
+}
+
+.login-page,
+.register-page,
+.submit-page,
+.secret-page {
+  padding: 60px 20px;
+}
+
+.submit-page {
+  display: flex;
+  justify-content: center;
+}
+
+.login-grid,
+.register-grid {
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+  width: 100%;
+  max-width: 500px;
+  margin: auto;
+}
+
+.login-form-box,
+.register-form-box,
+.google-auth-box,
+.submit-container,
+.secret-container {
+  padding: 40px;
+  background: linear-gradient(135deg, var(--secondary-bg), var(--accent-bg));
+
+  border-radius: 12px;
+  box-shadow: 0 0 20px rgba(255, 255, 255, 0.08);
+}
+
+.login-form-box{
+  max-width: 600px;
+  max-height: 400px;
+}
+
+.submit-container {
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  max-width: 700px;
+  max-height: 766px;
+  padding: 80px;
+  transform: scale(1.2);
+}
+
+.submit-title{
+  text-align: center;
+}
+
+.secret-container {
+  padding: 40px;
+  background: linear-gradient(135deg, var(--secondary-bg), var(--accent-bg));
+}
+
+/* =====================================
+   Input Fields
+===================================== */
+input[type="email"],
+input[type="password"],
+input[type="text"] {
+  width: 90%;
+  padding: 12px;
+  margin-top: 10px;
+  background-color: var(--primary-bg);
+  color: var(--light-pink);
+  border: 1px solid var(--highlight);
+  border-radius: 6px;
+  outline: none;
+  box-shadow: 0 0 8px rgba(255, 255, 255, 0.05);
+  transition: box-shadow 0.3s;
+}
+
+input:focus {
+  box-shadow: 0 0 12px var(--highlight);
+}
+
+/* =====================================
+   Buttons
+===================================== */
+button {
+  padding: 10px 20px;
+  background-color: var(--highlight);
+  color: var(--primary-bg);
+  border: none;
+  border-radius: 6px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+  margin-top: 20px;
+}
+
+button:hover {
+  background-color: var(--light-pink);
+  transform: scale(1.05);
+}
+
+/* =====================================
+   Google Auth Link
+===================================== */
+.google-link {
+  display: block;
+  text-align: center;
+  background-color: #db4437;
+  color: #fff;
+  padding: 10px;
+  border-radius: 6px;
+  text-decoration: none;
+}
+
+.google-link:hover {
+  background-color: #c33d2e;
+}
+
+/* =====================================
+   Secret List (secret.ejs)
+===================================== */
+.secrets-list {
+  list-style-type: none;
+  padding: 0;
+  margin: 20px 0;
+
+  max-width: 600px;
+  max-height: 500px;
+}
+
+.secret-item {
+  background-color: var(--accent-bg);
+  margin-bottom: 10px;
+  padding: 12px;
+  border-left: 4px solid var(--light-pink);
+  border-radius: 6px;
+}
+
+/* =====================================
+   Logout Link
+===================================== */
+.logout-link {
+  color: var(--text-muted);
+  margin-top: 20px;
+  display: inline-block;
+  text-decoration: underline;
+}
+
+/* =====================================
+   Footer
+===================================== */
+.site-footer {
+  margin-top: 50px;
+  padding: 20px 0;
+  background-color: var(--secondary-bg);
+  text-align: center;
+  font-size: 0.9rem;
+  color: var(--light-pink);
+  position: fixed;
+  width: 100%;
+  bottom: 0;
+}
