@@ -25,6 +25,18 @@ A secure web application that lets users anonymously share their secrets. Users 
 
 ---
 
+## 📸 Screenshot - Homepage
+
+![Homepage](./Screenshots/homepage.png)
+
+![Secrets-Page](./Screenshots/secrets_page.png)
+
+![Display-Secrets-Of-All](./Screenshots/submit_page.png)
+
+![Login-Page](./Screenshots/login.png)
+
+
+
 ## 🚀 Getting Started
 
 ### 1. Clone the repo
