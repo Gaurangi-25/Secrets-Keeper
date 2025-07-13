@@ -146,7 +146,7 @@ nav a:hover {
   align-items: center;
   font-family: var(--font-style);
   font-weight: 800;
-  margin-top: 0px;
+  margin-top: -50px;
 }
 
 .login-page,
@@ -154,6 +154,7 @@ nav a:hover {
 .submit-page,
 .secret-page {
   padding: 60px 20px;
+  
 }
 
 .submit-page {
@@ -171,8 +172,6 @@ nav a:hover {
   margin: auto;
 }
 
-.login-form-box,
-.register-form-box,
 .google-auth-box,
 .submit-container,
 .secret-container {
@@ -183,9 +182,14 @@ nav a:hover {
   box-shadow: 0 0 20px rgba(255, 255, 255, 0.08);
 }
 
+.register-form-box,
 .login-form-box{
-  max-width: 600px;
-  max-height: 400px;
+  max-width: 500px;
+  max-height: 200px;
+   padding: 30px;
+   border-radius: 12px;
+   margin-top: 0px;
+
 }
 
 .submit-container {
