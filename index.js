@@ -14,7 +14,7 @@ dotenv.config();
 // console.log("Session Secret:", process.env.SESSION_SECRET);
 
 const app = express();
-const port = 3000;
+const port = process.env.PORT || 3000;
 const saltRounds = 10;
 
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -70,7 +70,7 @@ passport.use(
     {
       clientID: process.env.GOOGLE_CLIENT_ID,
       clientSecret: process.env.GOOGLE_CLIENT_SECRET,
-      callbackURL: "http://localhost:3000/auth/google/secret",
+      callbackURL: `${process.env.BASE_URL}/auth/google/secret`,
       userProfileURL: "https://www.googleapis.com/oauth2/v3/userinfo",
     },
     async (accessToken, refreshToken, profile, cb) => {
@@ -177,7 +177,7 @@ app.get("/submit", (req, res) => {
 // User submitting a secret -> POST Request
 // Submit secret (handled from the /submit form)
 app.post("/submit", async (req, res) => {
-   if (!req.isAuthenticated()) {
+  if (!req.isAuthenticated()) {
     return res.redirect("/login");
   }
 
