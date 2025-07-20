@@ -7,9 +7,11 @@ import session from "express-session";
 import passport from "passport";
 import { Strategy } from "passport-local";
 import GoogleStrategy from "passport-google-oauth2";
-import env from "dotenv";
+import dotenv from "dotenv";
 
-env.config();
+dotenv.config();
+// console.log("Mongo URI:", process.env.MONGO_URI);
+// console.log("Session Secret:", process.env.SESSION_SECRET);
 
 const app = express();
 const port = 3000;
@@ -94,7 +96,7 @@ passport.use(
   )
 );
 
-// ✅ Passport session management
+// Passport session management
 passport.serializeUser((user, cb) => {
   cb(null, user.id);
 });
@@ -124,8 +126,10 @@ app.get("/register", (req, res) => {
 app.get("/secret", async (req, res) => {
   if (req.isAuthenticated()) {
     try {
-      const usersWithSecrets = await User.find({ secret: { $ne: null } });
-      const allSecrets = usersWithSecrets.map((user) => user.secret);
+      const usersWithSecrets = await User.find({
+        secret: { $exists: true, $ne: [] },
+      });
+      const allSecrets = usersWithSecrets.flatMap((user) => user.secret);
 
       res.render("secret.ejs", { secrets: allSecrets, user: req.user });
     } catch (err) {
@@ -173,11 +177,16 @@ app.get("/submit", (req, res) => {
 // User submitting a secret -> POST Request
 // Submit secret (handled from the /submit form)
 app.post("/submit", async (req, res) => {
+   if (!req.isAuthenticated()) {
+    return res.redirect("/login");
+  }
+
   const secret = req.body.secret;
   try {
     const user = await User.findById(req.user.id);
     if (user) {
-      user.secret = secret;
+      if (!user.secret) user.secret = [];
+      user.secret.push(secret);
       await user.save();
       res.redirect("/secret");
     } else {
