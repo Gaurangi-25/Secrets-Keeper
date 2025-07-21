@@ -10,8 +10,6 @@ import GoogleStrategy from "passport-google-oauth2";
 import dotenv from "dotenv";
 
 dotenv.config();
-// console.log("Mongo URI:", process.env.MONGO_URI);
-// console.log("Session Secret:", process.env.SESSION_SECRET);
 
 const app = express();
 const port = process.env.PORT || 3000;
@@ -21,13 +19,15 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.static("public"));
 app.set("view engine", "ejs");
 
+app.set("trust proxy", 1); // ✅ Required for proper session handling on Render
+
 app.use(
   session({
     secret: process.env.SESSION_SECRET,
     resave: false,
     saveUninitialized: true,
     cookie: {
-      //this means 1000ms->1s and 60 min and 60 sec and 24 hrs..which means a complete day -> so cookie wont expire for a day and i go directly to my page without logging in for a day
+      // this means 1000ms->1s and 60 min and 60 sec and 24 hrs..which means a complete day -> so cookie won't expire for a day and I go directly to my page without logging in for a day
       maxAge: 1000 * 60 * 60 * 24,
     },
   })
@@ -37,15 +37,24 @@ app.use(
 app.use(passport.initialize());
 app.use(passport.session());
 
-mongoose.connect(process.env.MONGO_URI);
+// ✅ Connect to MongoDB with logging
+mongoose
+  .connect(process.env.MONGO_URI, {
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
+  })
+  .then(() => console.log("✅ MongoDB connected"))
+  .catch((err) => {
+    console.error("❌ MongoDB connection error:", err);
+    process.exit(1);
+  });
 
-// Passport Strategy
+// Passport local strategy
 passport.use(
   "local",
   new Strategy(async function verify(username, password, cb) {
     try {
       const foundUser = await User.findOne({ email: username });
-
       if (!foundUser) {
         return cb(null, false, { message: "User not found" });
       }
@@ -63,9 +72,8 @@ passport.use(
   })
 );
 
-// Google Oauth Integration middleware
+// ✅ Google Oauth Integration middleware
 passport.use(
-  "google",
   new GoogleStrategy.Strategy(
     {
       clientID: process.env.GOOGLE_CLIENT_ID,
@@ -74,7 +82,7 @@ passport.use(
       userProfileURL: "https://www.googleapis.com/oauth2/v3/userinfo",
     },
     async (accessToken, refreshToken, profile, cb) => {
-      /*console.log(profile);*/
+      console.log("Google Profile:", profile); // ✅ Log profile to debug
       try {
         const existingUser = await User.findOne({ googleId: profile.id });
 
@@ -90,6 +98,7 @@ passport.use(
         await newUser.save();
         return cb(null, newUser);
       } catch (err) {
+        console.error("Google Strategy Error:", err);
         return cb(err);
       }
     }
@@ -110,6 +119,7 @@ passport.deserializeUser(async (id, cb) => {
   }
 });
 
+// Routes
 app.get("/", (req, res) => {
   res.render("home.ejs", { user: req.user });
 });
@@ -174,8 +184,7 @@ app.get("/submit", (req, res) => {
   }
 });
 
-// User submitting a secret -> POST Request
-// Submit secret (handled from the /submit form)
+// POST: Submit secret
 app.post("/submit", async (req, res) => {
   if (!req.isAuthenticated()) {
     return res.redirect("/login");
@@ -198,7 +207,7 @@ app.post("/submit", async (req, res) => {
   }
 });
 
-// Register Route
+// POST: Register
 app.post("/register", async (req, res) => {
   const email = req.body["username"];
   const password = req.body.password;
@@ -227,7 +236,7 @@ app.post("/register", async (req, res) => {
   }
 });
 
-// Login Router
+// POST: Login
 app.post(
   "/login",
   passport.authenticate("local", {
@@ -236,6 +245,15 @@ app.post(
   })
 );
 
+// Global error logging
+process.on("unhandledRejection", (reason, promise) => {
+  console.error("Unhandled Rejection:", reason);
+});
+process.on("uncaughtException", (err) => {
+  console.error("Uncaught Exception:", err);
+});
+
+// Start server
 app.listen(port, () => {
-  console.log(`Server running on port ${port}`);
+  console.log(`✅ Server running on port ${port}`);
 });
