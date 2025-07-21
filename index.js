@@ -8,6 +8,7 @@ import passport from "passport";
 import { Strategy } from "passport-local";
 import GoogleStrategy from "passport-google-oauth2";
 import dotenv from "dotenv";
+import MongoStore from "connect-mongo";
 
 dotenv.config();
 
@@ -26,6 +27,8 @@ app.use(
     secret: process.env.SESSION_SECRET,
     resave: false,
     saveUninitialized: true,
+    store: MongoStore.create({ mongoUrl: process.env.MONGO_URI }),
+
     cookie: {
       // this means 1000ms->1s and 60 min and 60 sec and 24 hrs..which means a complete day -> so cookie won't expire for a day and I go directly to my page without logging in for a day
       maxAge: 1000 * 60 * 60 * 24,
